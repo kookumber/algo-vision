@@ -1,6 +1,6 @@
 import React from "react";
 import './sortingVisualizer.scss'
-import { randomIntFromInterval, arraysAreEqual } from "../utils/utils";
+import { randomIntFromInterval} from "../utils/utils";
 import { getMergeSortAnimation } from "../sortingAlgos/mergeSortAlgo";
 
 

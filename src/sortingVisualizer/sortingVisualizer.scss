@@ -17,6 +17,15 @@ $background: #011627;
 $primary-bar: #FF2C83;
 $line-color: #637777;
 $border-rad: 8px;
+$black: #575656;
+$cyan: #21c7a8;
+$blue: #82aaff;
+$purp-red: #b5179e;
+$purp-light: #7209b7;
+$purp-med: #560bad;
+$purp-dark: #480ca8;
+$indigo: #3a0ca3;
+$blue-dark: #3f37c9;
 
 
 body {
@@ -51,7 +60,8 @@ body {
     align-items: flex-start;
 
     button {
-        height: 50px;
+        color: white;
+        height: 40px;
         width: 120px;
         padding-left: 15px;
         padding-right: 15px;
@@ -59,6 +69,13 @@ body {
         border-radius: $border-rad;
         border: none;
         font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        background-image: linear-gradient(to right, $purp-light, $purp-med);
+
+        &:hover {
+            background-image: linear-gradient(to right, $purp-med, $purp-dark)
+        }
     }
 
     
@@ -70,6 +87,7 @@ body {
         border: 2px solid $line-color;
         border-radius: $border-rad;
         justify-content: flex-start;
+
         button {
             width: 200px;
         }
@@ -82,7 +100,7 @@ body {
         .arr-range-selector {
             width: 200px;
             height: 50px;
-            margin: 10px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;

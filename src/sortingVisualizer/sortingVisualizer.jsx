@@ -2,6 +2,8 @@ import React from "react";
 import './sortingVisualizer.scss'
 import { randomIntFromInterval} from "../utils/utils";
 import { getMergeSortAnimation } from "../sortingAlgos/mergeSortAlgo";
+import { swap } from "../sortingAlgos/bubbleSortAlgo";
+
 
 
 export default class SortingVisualizer extends React.Component {
@@ -11,8 +13,9 @@ export default class SortingVisualizer extends React.Component {
             itemArr: [],
             arrLength: 30,
             primaryColor: '#FF2C83',
-            secondaryColor: '#C792EA',
-            animationSpeed: 50,
+            secondaryColor: '#4ecdc4',
+            tertiaryColor: '#b5179e',
+            animationSpeed: 15,
             algoDesc: ""
         }
         this.updateArrLength = this.updateArrLength.bind(this)
@@ -29,20 +32,24 @@ export default class SortingVisualizer extends React.Component {
         for(let i = 0; i < len; i++) {
             arr.push(randomIntFromInterval(10, 450))
         }
-
-        // const arrBars = document.getElementsByClassName('bar')
-        
-        // for(let i = 0; i < arr.length; i++){
-        //     const barStyle = arrBars[i].style
-        //     barStyle.backgroundColor = this.state.primaryColor
-        // }
         this.setState({ itemArr: arr })
+        this.resetColor()
+
+    }
+
+    resetColor(){
+        let arr = this.state.itemArr
+        const arrBars = document.getElementsByClassName('bar')
+        for (let i = 0; i < arr.length; i++) {
+            const barStyle = arrBars[i]
+            barStyle.style.backgroundColor = this.state.primaryColor
+        }
     }
 
     updateArrLength(e){
         let val = e.currentTarget.value
-        this.setState({ arrLength: val})
-        this.resetArr(this.state.arrLength)
+        this.setState({ arrLength: val })
+        this.resetArr(e.currentTarget.value)
     }
 
     updateSpeed(e){
@@ -50,13 +57,48 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
+    async bubbleSort() {
+        let bars = document.getElementsByClassName('bar')
+        
+        for (let i = 0; i < bars.length; i++) {
+            for (let j = 0; j < bars.length - i - 1; j++) {
+                let barOneStyle = bars[j].style
+                let barTwoStyle = bars[j+1].style
+
+                barOneStyle.backgroundColor = this.state.secondaryColor
+                barTwoStyle.backgroundColor = this.state.secondaryColor
+
+                // await new Promise((resolve) => 
+                //     setTimeout(() => {
+                //         resolve();
+                //     }, 100)
+                // )
+                
+                const bar1 = bars[j].style.height
+                const val1 = Number(bar1.slice(0, bar1.indexOf('p')))
+                const bar2 = bars[j + 1].style.height
+                const val2 = Number(bar2.slice(0, bar2.indexOf('p')))
+
+                if (val1 > val2) {
+                    await swap(bars[j], bars[j + 1])
+                    bars = document.getElementsByClassName('bar')
+                }
+
+                bars[j].style.backgroundColor = this.state.primaryColor
+                bars[j + 1].style.backgroundColor = this.state.primaryColor
+            }
+
+            bars[bars.length - i - 1].style.backgroundColor = this.state.tertiaryColor
+        }
+    }
+
     mergeSort() {
-        this.setState({ algoDesc: "Merge Sort is a sorting algorithm that is based on the Divid and Conquer paradigm. The array is initially divided into two equal haves and then they are combined in a sorted manner." })
+        // Uses itemArr, animationSpeed
         const animations = getMergeSortAnimation(this.state.itemArr)
         for (let i = 0; i < animations.length; i++) {
             const arrBars = document.getElementsByClassName('bar')
             const isColorChange = i % 3 !== 2
-
+            
             if (isColorChange) {
                 const [barOneIdx, barTwoIdx] = animations[i]
                 const barOneStyle = arrBars[barOneIdx].style;
@@ -106,10 +148,10 @@ export default class SortingVisualizer extends React.Component {
                         <h4>Animation Speed:</h4>
                         <input type="range"
                             id="speed-control" 
-                            min="1"
-                            max="100"
+                            min="0.75"
+                            max="50"
                             step="1"
-                            defaultValue="50"
+                            defaultValue="15"
                             onChange={e => this.updateSpeed(e)} />
                         <div>
                             <span>Slower</span>
@@ -119,11 +161,11 @@ export default class SortingVisualizer extends React.Component {
                 </div>
 
                 <div className="algo-selectors">
-                    
+                    <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
                     <button onClick={() => this.mergeSort()}>Merge Sort</button>
                 </div>
             </div>
-            <div className="arr-wrap" id="wrapper" style={{ width: '70%' }}>
+            <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
             {
                 itemArr.map((val, idx) => {
                     return (

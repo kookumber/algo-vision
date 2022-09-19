@@ -1,8 +1,9 @@
 import React from "react";
 import './sortingVisualizer.scss'
 import { randomIntFromInterval} from "../utils/utils";
-import { getMergeSortAnimation } from "../sortingAlgos/mergeSortAlgo";
+import { mergeSort } from "../sortingAlgos/mergeSortAlgo";
 import { swap } from "../sortingAlgos/bubbleSortAlgo";
+import { quickSort } from "../sortingAlgos/quickSortAlgo";
 
 
 
@@ -12,9 +13,9 @@ export default class SortingVisualizer extends React.Component {
         this.state = {
             itemArr: [],
             arrLength: 30,
-            primaryColor: '#FF2C83',
-            secondaryColor: '#4ecdc4',
-            tertiaryColor: '#b5179e',
+            primaryColor: '#fa1593',
+            secondaryColor: '#55e7ff',
+            tertiaryColor: '#00ffd2',
             animationSpeed: 15,
             algoDesc: ""
         }
@@ -57,6 +58,8 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
+    // Leaving bubble sort function here instead of using import function because 
+    // we can use the animation speed state to toggle speed as the sorting is running
     async bubbleSort() {
         let bars = document.getElementsByClassName('bar')
         
@@ -67,12 +70,6 @@ export default class SortingVisualizer extends React.Component {
 
                 barOneStyle.backgroundColor = this.state.secondaryColor
                 barTwoStyle.backgroundColor = this.state.secondaryColor
-
-                // await new Promise((resolve) => 
-                //     setTimeout(() => {
-                //         resolve();
-                //     }, 100)
-                // )
                 
                 const bar1 = bars[j].style.height
                 const val1 = Number(bar1.slice(0, bar1.indexOf('p')))
@@ -80,7 +77,7 @@ export default class SortingVisualizer extends React.Component {
                 const val2 = Number(bar2.slice(0, bar2.indexOf('p')))
 
                 if (val1 > val2) {
-                    await swap(bars[j], bars[j + 1])
+                    await swap(bars[j], bars[j + 1], this.state.animationSpeed)
                     bars = document.getElementsByClassName('bar')
                 }
 
@@ -88,81 +85,79 @@ export default class SortingVisualizer extends React.Component {
                 bars[j + 1].style.backgroundColor = this.state.primaryColor
             }
 
-            bars[bars.length - i - 1].style.backgroundColor = this.state.tertiaryColor
+            bars[bars.length - i - 1].style.backgroundColor = this.state.secondaryColor
         }
     }
 
-    mergeSort() {
-        // Uses itemArr, animationSpeed
-        const animations = getMergeSortAnimation(this.state.itemArr)
-        for (let i = 0; i < animations.length; i++) {
-            const arrBars = document.getElementsByClassName('bar')
-            const isColorChange = i % 3 !== 2
-            
-            if (isColorChange) {
-                const [barOneIdx, barTwoIdx] = animations[i]
-                const barOneStyle = arrBars[barOneIdx].style;
-                const barTwoStyle = arrBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? this.state.primaryColor : this.state.secondaryColor;
-                setTimeout(() => {
-                    barOneStyle.backgroundColor = color
-                    barTwoStyle.backgroundColor = color;
-                }, i * this.state.animationSpeed); 
-            } else {
-                setTimeout(() => {
-                    const [barOneIdx, newHeight] = animations[i]
-                    const barOneStyle = arrBars[barOneIdx].style;
-                    barOneStyle.height = `${newHeight}px`;
-                }, i * this.state.animationSpeed);
-            }
+    handleSelection(algoName) {
+        if (algoName === "Quick Sort") {
+            quickSort(0, this.state.arrLength - 1)
+        } else if (algoName === "Bubble Sort"){
+            this.bubbleSort()
+        } else if (algoName === "Merge Sort") {
+            mergeSort(this.state.itemArr, this.state.animationSpeed, this.state.primaryColor, this.state.secondaryColor)
         }
     }
 
     render() {
 
-        const { itemArr } = this.state;
+        const { itemArr, primaryColor, secondaryColor, animationSpeed, arrLength } = this.state;
         
+        const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort']
+
         return (
         <>
         <header>
-            <h1 className="site-header">Algovision</h1>
+            <h1 className="site-header">Algovision <span>by Quang</span></h1>
         </header>
         <div className="container">
             
             <div className="user-buttons">
                 <div className="configurations">
-                    <div>
+                    {/* <div>
                         <h3>Configure your Display</h3>
-                    </div>
-                    <button onClick={() => this.resetArr(this.state.arrLength)}>Generate New Array</button>
-                    <div className="arr-range-selector">
-                        <h4>Array Length: {this.state.arrLength}</h4>
-                        <input type="range"
-                            min="10"
-                            max="100"
-                            step="1"
-                            defaultValue="30"
-                            onChange={e => this.updateArrLength(e)} />
-                    </div>
-                    <div className="arr-range-selector">
-                        <h4>Animation Speed:</h4>
-                        <input type="range"
-                            id="speed-control" 
-                            min="0.75"
-                            max="50"
-                            step="1"
-                            defaultValue="15"
-                            onChange={e => this.updateSpeed(e)} />
-                        <div>
-                            <span>Slower</span>
-                            <span>Faster</span>
+                    </div> */}
+                    <div>
+                        <button onClick={() => this.resetArr(this.state.arrLength)}>Reset Array</button>
+                        <div className="arr-range-selector">
+                            <h4>Array Length: {this.state.arrLength}</h4>
+                            <input type="range"
+                                min="10"
+                                max="100"
+                                step="1"
+                                defaultValue="30"
+                                onChange={e => this.updateArrLength(e)} />
+                        </div>
+                        <div className="arr-range-selector">
+                            <h4 id="speed-header">Animation Speed:</h4>
+                            <input type="range"
+                                id="speed-control" 
+                                min="0.75"
+                                max="50"
+                                step="1"
+                                defaultValue="15"
+                                onChange={e => this.updateSpeed(e)} />
+                            <div>
+                                <span>Slower</span>
+                                <span>Faster</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="algo-selectors">
-                    <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-                    <button onClick={() => this.mergeSort()}>Merge Sort</button>
+                    <select
+                        id="algorithms" 
+                        className="select-hidden" 
+                        onChange={e => this.handleSelection(e.currentTarget.value)}>
+                        <option value="hide">-- Algorithm --</option>
+                        {sortAlgos.map((algo, i) => {
+                            return (
+                                <option key={i} value={algo}>{algo}</option>
+                            )
+                        })}
+                    </select>
+                    
                 </div>
             </div>
             <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
@@ -174,7 +169,7 @@ export default class SortingVisualizer extends React.Component {
                              style={{
                                 height: `${val}px`,
                                 backgroundColor: `${this.state.primaryColor}`}}>
-                                   
+                            {/* <div>{itemArr.length <= 20 ? val : null}</div> */}
                         </div>
                     )
                 })

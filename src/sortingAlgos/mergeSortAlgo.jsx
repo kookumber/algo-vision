@@ -1,3 +1,32 @@
+export const mergeSort = (arr, animationSpeed, primeColor, secondaryColor) => {
+    // Uses itemArr, animationSpeed
+    const animations = getMergeSortAnimation(arr)
+
+    for (let i = 0; i < animations.length; i++) {
+        const arrBars = document.getElementsByClassName('bar')
+        const isColorChange = i % 3 !== 2
+
+        if (isColorChange) {
+            const [barOneIdx, barTwoIdx] = animations[i]
+            const barOneStyle = arrBars[barOneIdx].style;
+            const barTwoStyle = arrBars[barTwoIdx].style;
+            const color = i % 3 === 0 ? primeColor : secondaryColor;
+            setTimeout(() => {
+                barOneStyle.backgroundColor = color
+                barTwoStyle.backgroundColor = color;
+            }, i * animationSpeed);
+            barOneStyle.color = primeColor
+            barTwoStyle.color = primeColor
+        } else {
+            setTimeout(() => {
+                const [barOneIdx, newHeight] = animations[i]
+                const barOneStyle = arrBars[barOneIdx].style;
+                barOneStyle.height = `${newHeight}px`;
+            }, i * animationSpeed);
+        }
+    }
+}
+
 
 
 
@@ -16,7 +45,7 @@ const mergeSortHelper = (mainArr, startIdx, endIdx, auxiliaryArr, animations) =>
 
     mergeSortHelper(auxiliaryArr, startIdx, midIdx, mainArr, animations)
     mergeSortHelper(auxiliaryArr, midIdx + 1, endIdx, mainArr, animations)
-    doMerge(mainArr, startIdx,  midIdx, endIdx, auxiliaryArr, animations)
+    doMerge(mainArr, startIdx, midIdx, endIdx, auxiliaryArr, animations)
 }
 
 const doMerge = (mainArray, startIdx, midIdx, endIdx, auxiliaryArray, animations) => {

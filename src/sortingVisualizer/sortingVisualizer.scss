@@ -14,18 +14,18 @@
 }
 
 $background: #011627;
-$primary-bar: #FF2C83;
 $line-color: #637777;
 $border-rad: 8px;
 $black: #575656;
 $cyan: #21c7a8;
-$blue: #82aaff;
-$purp-red: #b5179e;
-$purp-light: #7209b7;
-$purp-med: #560bad;
-$purp-dark: #480ca8;
-$indigo: #3a0ca3;
-$blue-dark: #3f37c9;
+$tokyo-pink: #fa1593;
+$tokyo-blue: #0DD3FE;
+$tokyo-blue-mid: #00ccfd;
+$tokyo-yellow: #F9BD25;
+$tokyo-purple: #2011a2;
+$tokyo-green: #00ffd2;
+$tokyo-neon-green: #39FF14;
+$test: #6b5b95;
 
 
 body {
@@ -33,10 +33,17 @@ body {
 }
 
 .site-header {
-    color: white;
-    font-size: 50px;
-
+    color: $tokyo-blue;
+    font-size: 30px;
+    text-align: start;
     font-weight: 900;
+    width: 80%;
+    margin-top: 30px;
+
+    span {
+        font-size: 18px;
+        color: $tokyo-pink;
+    }
 }
 
 .container {
@@ -51,7 +58,7 @@ body {
 
 
 .user-buttons {
-    min-width: 600px;
+    min-width: 920px;
     height: 60px;
     width: 80%;
     display: flex;
@@ -60,21 +67,23 @@ body {
     align-items: flex-start;
 
     button {
-        color: white;
+        color: black;
         height: 40px;
         width: 120px;
         padding-left: 15px;
         padding-right: 15px;
         margin: 10px;
+        margin-left: 0px;
+        margin-right: 20px;
         border-radius: $border-rad;
         border: none;
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
-        background-image: linear-gradient(to right, $purp-light, $purp-med);
+        background-color: $tokyo-green;
 
         &:hover {
-            background-image: linear-gradient(to right, $purp-med, $purp-dark)
+            background-color: $tokyo-blue-mid;
         }
     }
 
@@ -82,14 +91,12 @@ body {
 
     .configurations {
         @include flex-column();
-        height: 250px;
-        width: 280px;
-        border: 2px solid $line-color;
         border-radius: $border-rad;
-        justify-content: flex-start;
+        align-items: center;
 
         button {
-            width: 200px;
+            width: 140px;
+            margin-right: 15px;
         }
 
         h3 {
@@ -97,36 +104,49 @@ body {
             color: white;
         }
 
+        div {
+            @include flex-row();
+        }
         .arr-range-selector {
-            width: 200px;
+            width: 175px;
             height: 50px;
             margin-top: 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly;
+            justify-content: flex-start;
             align-items: flex-start;
             z-index: 10;
-    
+
             h4 {
-                
                 margin: 0;
-                color: white;
+                margin-left: 10px;
+                margin-bottom: 5px;
+                color: $tokyo-pink;
                 font-size: 15px;
                 line-height: 15px;
             }
+
+            #speed-header {
+                margin-left: 40px;
+            }
+
+            
     
             input {
+                margin-left: 10px;
                 width: 100%;
             }
 
             #speed-control {
                 direction: rtl;
+                margin-left: 40px;
             }
 
             div {
                 width: 100%;
                 @include flex-row();
                 justify-content: space-between;
+                margin-left: 40px;
 
                 span {
                     color: white;
@@ -138,7 +158,21 @@ body {
 
 
     .algo-selectors {
-        @include flex-row()
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        font-size: 16px;
+        font-weight: bold;
+        color: $tokyo-pink;
+        width: 200px;
+        height: 40px;
+
+        label {
+            color: $tokyo-pink;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
     }
 }
 
@@ -168,9 +202,14 @@ body {
 
 .bar {
     flex: 1;
-    /* max-width: 100%; */
-    /* background-color: #480ca8; */
     display: inline-block;
     margin: 0 1px;
-    
+    // transition: 0.1s all ease;
+
+    // @include flex-row();
+    // div {
+    //     transform: rotate(180deg);
+    //     transform: scale(1, -1);
+    //     font-weight: bold;
+    // }
 }

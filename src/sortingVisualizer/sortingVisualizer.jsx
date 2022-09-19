@@ -1,9 +1,10 @@
 import React from "react";
 import './sortingVisualizer.scss'
+import './selectBox.scss'
 import { randomIntFromInterval} from "../utils/utils";
 import { mergeSort } from "../sortingAlgos/mergeSortAlgo";
 import { swap } from "../sortingAlgos/bubbleSortAlgo";
-import { quickSort } from "../sortingAlgos/quickSortAlgo";
+import { quickSort, lometo_partition } from "../sortingAlgos/quickSortAlgo";
 
 
 
@@ -17,7 +18,8 @@ export default class SortingVisualizer extends React.Component {
             secondaryColor: '#55e7ff',
             tertiaryColor: '#00ffd2',
             animationSpeed: 15,
-            algoDesc: ""
+            algoDesc: "",
+            selectedAlgo: "",
         }
         this.updateArrLength = this.updateArrLength.bind(this)
         this.updateSpeed = this.updateSpeed.bind(this)
@@ -58,6 +60,10 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
+    selectAlgo(val){
+        this.setState({ selectedAlgo: val})
+    }
+
     // Leaving bubble sort function here instead of using import function because 
     // we can use the animation speed state to toggle speed as the sorting is running
     async bubbleSort() {
@@ -91,7 +97,7 @@ export default class SortingVisualizer extends React.Component {
 
     handleSelection(algoName) {
         if (algoName === "Quick Sort") {
-            quickSort(0, this.state.arrLength - 1)
+            quickSort(0, this.state.arrLength - 1, this.state.animationSpeed)
         } else if (algoName === "Bubble Sort"){
             this.bubbleSort()
         } else if (algoName === "Merge Sort") {
@@ -104,7 +110,6 @@ export default class SortingVisualizer extends React.Component {
         const { itemArr, primaryColor, secondaryColor, animationSpeed, arrLength } = this.state;
         
         const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort']
-
         return (
         <>
         <header>
@@ -146,7 +151,7 @@ export default class SortingVisualizer extends React.Component {
                 </div>
 
                 <div className="algo-selectors">
-                    <select
+                    {/* <select
                         id="algorithms" 
                         className="select-hidden" 
                         onChange={e => this.handleSelection(e.currentTarget.value)}>
@@ -156,7 +161,31 @@ export default class SortingVisualizer extends React.Component {
                                 <option key={i} value={algo}>{algo}</option>
                             )
                         })}
-                    </select>
+                    </select> */}
+                    <ul className="select">
+                        <li className="place_holder">
+                            <input className="select_close" type="radio" name="algorithm" id="algorithm-close" value=""/>
+                            <span className="select_label select_label-placeholder">Algorithms</span>
+                        </li>
+                        <li className="select_items">
+                            <input className="select_expand" type="radio" name="algorithm" id="algorithm-opener" />
+                            <label className="select_closeLabel" htmlFor="algorithm-close"></label>
+
+                            <ul className="select_options">
+                                {
+                                    sortAlgos.map((algo, idx) => {
+                                        return (
+                                            <li className="select_option" key={idx} onClick={e => this.selectAlgo(algo)}>
+                                                <input className="select_input" type="radio" name="algorithm" id={algo}/>
+                                                <label className="select_label" htmlFor={algo}>{algo}</label>
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                            <label className="select_expandLabel" htmlFor="algorithm-opener"></label>
+                        </li>
+                    </ul>
                     
                 </div>
             </div>

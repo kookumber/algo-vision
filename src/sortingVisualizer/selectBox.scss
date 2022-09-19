@@ -1,0 +1,177 @@
+$background: #011627;
+$line-color: #637777;
+$border-rad: 4px;
+$black: #575656;
+$cyan: #21c7a8;
+$tokyo-pink: #fa1593;
+$tokyo-blue: #0DD3FE;
+$tokyo-blue-mid: #00ccfd;
+$tokyo-yellow: #F9BD25;
+$tokyo-purple: #2011a2;
+$tokyo-light-purple: #cc00ff;
+$tokyo-green: #00ffd2;
+$tokyo-neon-green: #39FF14;
+$test: #6b5b95;
+
+.algo-selectors {
+    width: 205px;
+    height: 40px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    margin-top: auto;
+    // margin-bottom: auto;
+    // color: $tokyo-light-purple;
+    border-radius: 8px;
+
+    .select {
+        width: 100%;
+        height: 40px;
+        cursor: pointer;
+        background-color: $tokyo-green;
+        // box-shadow: 0 2px 0 white;
+        border-radius: $border-rad;
+        list-style: none;
+        align-items: center;
+
+        &_expand {
+            width: 0;
+            height: 40px;
+            position: absolute;
+            margin-top: -40px;
+            // right: 0;
+            margin-left: 90px;
+            // z-index: 2;
+            border-radius: 8px;
+            
+            &::after {
+                content: '\003E';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(-50%, -50%) rotate(90deg) scaleY(1.75);
+                color: $background;
+                font-size: 28px;
+                pointer-events: none;
+                transition: all 250ms cubic-bezier(.4, .25, .3, 1);
+                opacity: .6;
+                // z-index: 4;
+            }
+
+            &:hover::after {
+                opacity: 1;
+            }
+
+            &:checked::after {
+                transform: translate(-50%, -50%) rotate(90deg) scaleX(-1) scaleY(1.75);
+            }
+        }
+
+        &_expandLabel {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            
+        }
+        
+        &_close {
+            display: none;
+        }
+        
+        &_closeLabel {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            z-index: -1;
+        }
+        
+        &_items {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            // border-radius: 8px;
+            padding-top: 40px;
+            align-items: center;
+        }
+        
+        &_input {
+            display: none;
+        }
+        
+        &_label {
+            transition: all 250ms cubic-bezier(.4, .25, .3, 1);
+            display: block;
+            height: 0px;
+            font-size: 1.2rem;
+            line-height: 40px;
+            overflow: hidden;
+            cursor: pointer;
+            padding-left: 20px;
+            // z-index: 5;
+            color: $background;
+            background-color: $tokyo-green;
+            border-radius: $border-rad;
+            // border-radius: 8px;
+            // margin-top: 5px;
+            // margin-bottom: 5px;
+
+            &-placeholder {
+                height: 40px;
+                line-height: 40px;
+                vertical-align: middle;
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: $background;
+                // z-index: -1; //Don't use
+                background-color: transparent;
+            }
+        }
+
+        &_options {
+            list-style: none;
+            padding: 0;
+            list-style-position: inside;
+            text-align: start;
+        }
+
+        &_expand:checked {
+            +.select_closeLabel {
+                display: block;
+                // z-index: 4;
+                
+                +.select_options {
+                    .select_label {
+                        height: 40px;
+                        &:hover {
+                            background-color: $tokyo-pink;
+                            // color: $tokyo-pink;
+                            font-weight: bold;
+                        }
+                    }
+                    
+                    +.select_expandLabel {
+                        display: none;
+                    }
+                }
+            }
+        }
+        
+        &_input:checked + .select_label {
+            height: 40px;
+            margin-top: -40px;
+        }
+    }
+}
+

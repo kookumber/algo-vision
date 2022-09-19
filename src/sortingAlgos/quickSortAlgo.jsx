@@ -27,24 +27,25 @@ let pivotColor = "#00ffd2" //Seafoam Green
 let compareColor = "#F9BD25" //Yellow
 // Less than pivot
 let lowerColor = "#0DD3FE" //Blue
-// Greater than pivot //
 let greaterColor = "#39FF14" //Neon Green
 // Pivot moved positions
 let pivotMovedColor = "#fa1593" //Pink
+// Greater than pivot //
+let tokyoLighPurple = '#cc00ff'
 
 
 export const quickSort = async (left, right, delay = 100) => {
     if (left < right) {
         // Storing the index of pivot element after partition
-        let pivotIdx = await lometo_partition(left, right);
+        let pivotIdx = await lometo_partition(left, right, delay);
         // Recursively calling quicksort for left partition
-        await quickSort(left, pivotIdx - 1);
+        await quickSort(left, pivotIdx - 1, delay);
         // Recursively calling quicksort for right partition
-        await quickSort(pivotIdx + 1, right)
+        await quickSort(pivotIdx + 1, right, delay)
     }
 } 
 
-export const lometo_partition = async (left, right, delay = 400) => {
+export const lometo_partition = async (left, right, delay) => {
     const bars = document.getElementsByClassName('bar')
 
     // Store the value of the pivot element - Lometo's partition uses last element
@@ -85,7 +86,7 @@ export const lometo_partition = async (left, right, delay = 400) => {
             // Style the bar indicating its lower smaller value
             bars[i].style.backgroundColor = lowerColor
 
-            if (i !== j) bars[j].style.backgroundColor = greaterColor
+            if (i !== j) bars[j].style.backgroundColor = tokyoLighPurple
 
             await new Promise((resolve) => 
                 setTimeout(() => {
@@ -93,7 +94,7 @@ export const lometo_partition = async (left, right, delay = 400) => {
                 }, delay)    
             )
         } else {
-            bars[j].style.backgroundColor = greaterColor
+            bars[j].style.backgroundColor = tokyoLighPurple
         }
     }
     
@@ -104,7 +105,7 @@ export const lometo_partition = async (left, right, delay = 400) => {
     bars[i].style.height = bars[right].style.height
     bars[right].style.height = temp1
 
-    bars[right].style.backgroundColor = greaterColor
+    bars[right].style.backgroundColor = tokyoLighPurple
     // Color to show pivot element has moved 
     bars[i].style.backgroundColor = pivotMovedColor
 

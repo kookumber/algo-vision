@@ -19,7 +19,7 @@ export default class SortingVisualizer extends React.Component {
             tertiaryColor: '#00ffd2',
             animationSpeed: 15,
             algoDesc: "",
-            selectedAlgo: "",
+            selectedAlgo: ""
         }
         this.updateArrLength = this.updateArrLength.bind(this)
         this.updateSpeed = this.updateSpeed.bind(this)
@@ -60,9 +60,12 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
-    selectAlgo(val){
-        this.setState({ selectedAlgo: val})
-    }
+    // selectAlgo(e, val){
+    //     console.log(val)
+    //     e.preventDefault()
+    //     e.stopPropagation()
+    //     this.setState({ selectedAlgo: val})
+    // }
 
     // Leaving bubble sort function here instead of using import function because 
     // we can use the animation speed state to toggle speed as the sorting is running
@@ -95,20 +98,21 @@ export default class SortingVisualizer extends React.Component {
         }
     }
 
-    handleSelection(algoName) {
-        if (algoName === "Quick Sort") {
+    handleSelection() {
+        
+        if (this.state.selectedAlgo === "Quick Sort") {
             quickSort(0, this.state.arrLength - 1, this.state.animationSpeed)
-        } else if (algoName === "Bubble Sort"){
+        } else if (this.state.selectedAlgo === "Bubble Sort"){
             this.bubbleSort()
-        } else if (algoName === "Merge Sort") {
+        } else if (this.state.selectedAlgo === "Merge Sort") {
             mergeSort(this.state.itemArr, this.state.animationSpeed, this.state.primaryColor, this.state.secondaryColor)
         }
     }
 
     render() {
 
-        const { itemArr, primaryColor, secondaryColor, animationSpeed, arrLength } = this.state;
-        
+        const { itemArr, selectedAlgo } = this.state;
+
         const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort']
         return (
         <>
@@ -149,44 +153,36 @@ export default class SortingVisualizer extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className="algo-configs">
+                    <div className="algo-selectors">
+                        {/*--------- SETUP DROPDOWN MENU FOR ALGOS! ---------*/}
+                        <ul className="select">
+                            <li className="place_holder">
+                                <input className="select_close" type="radio" name="algorithm" id="algorithm-close" value=""/>
+                                <span className="select_label select_label-placeholder">Select Algo</span>
+                            </li>
+                            <li className="select_items">
+                                <input className="select_expand" type="radio" name="algorithm" id="algorithm-opener" />
+                                <label className="select_closeLabel" htmlFor="algorithm-close"></label>
 
-                <div className="algo-selectors">
-                    {/* <select
-                        id="algorithms" 
-                        className="select-hidden" 
-                        onChange={e => this.handleSelection(e.currentTarget.value)}>
-                        <option value="hide">-- Algorithm --</option>
-                        {sortAlgos.map((algo, i) => {
-                            return (
-                                <option key={i} value={algo}>{algo}</option>
-                            )
-                        })}
-                    </select> */}
-                    <ul className="select">
-                        <li className="place_holder">
-                            <input className="select_close" type="radio" name="algorithm" id="algorithm-close" value=""/>
-                            <span className="select_label select_label-placeholder">Algorithms</span>
-                        </li>
-                        <li className="select_items">
-                            <input className="select_expand" type="radio" name="algorithm" id="algorithm-opener" />
-                            <label className="select_closeLabel" htmlFor="algorithm-close"></label>
-
-                            <ul className="select_options">
-                                {
-                                    sortAlgos.map((algo, idx) => {
-                                        return (
-                                            <li className="select_option" key={idx} onClick={e => this.selectAlgo(algo)}>
-                                                <input className="select_input" type="radio" name="algorithm" id={algo}/>
-                                                <label className="select_label" htmlFor={algo}>{algo}</label>
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                            <label className="select_expandLabel" htmlFor="algorithm-opener"></label>
-                        </li>
-                    </ul>
-                    
+                                <ul className="select_options">
+                                    {
+                                        sortAlgos.map((algo, idx) => {
+                                            return (
+                                                <li className="select_option" key={idx} onClick={e => this.setState({selectedAlgo: algo})}>
+                                                    <input className="select_input" type="radio" name="algorithm" id={algo}/>
+                                                    <label className="select_label" htmlFor={algo}>{algo}</label>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
+                                <label className="select_expandLabel" htmlFor="algorithm-opener"></label>
+                            </li>
+                        </ul>
+                        {/*--------- END DROPDOWN MENU! ---------*/}
+                    </div>
+                    <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button>
                 </div>
             </div>
             <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>

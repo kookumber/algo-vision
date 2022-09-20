@@ -12,6 +12,7 @@ $tokyo-light-purple: #cc00ff;
 $tokyo-green: #00ffd2;
 $tokyo-neon-green: #39FF14;
 $test: #6b5b95;
+$font-size-mid: 15px;
 
 .algo-selectors {
     width: 205px;
@@ -22,7 +23,7 @@ $test: #6b5b95;
     display: flex;
     border-radius: 8px;
     align-items: center;
-    margin-top: auto;
+    // margin-top: auto;
     // margin-bottom: auto;
     // color: $tokyo-light-purple;
     border-radius: 8px;
@@ -113,7 +114,7 @@ $test: #6b5b95;
             transition: all 250ms cubic-bezier(.4, .25, .3, 1);
             display: block;
             height: 0px;
-            font-size: 1.2rem;
+            font-size: $font-size-mid;
             line-height: 40px;
             overflow: hidden;
             cursor: pointer;

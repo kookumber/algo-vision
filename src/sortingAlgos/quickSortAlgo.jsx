@@ -27,7 +27,7 @@ let pivotColor = "#00ffd2" //Seafoam Green
 let compareColor = "#F9BD25" //Yellow
 // Less than pivot
 let lowerColor = "#0DD3FE" //Blue
-let greaterColor = "#39FF14" //Neon Green
+
 // Pivot moved positions
 let pivotMovedColor = "#fa1593" //Pink
 // Greater than pivot //
@@ -118,76 +118,3 @@ export const lometo_partition = async (left, right, delay) => {
     return i
 }
 
-
-
-
-// let arr = [5, 4, 2, 6, 8, 22, 4, 99, 422, 53, 23, 1, 60, 19]
-
-
-// async function lometo_partition(l, r, delay = 700) {
-//     var blocks = document.querySelectorAll(".block");
-
-//     // Storing the value of pivot element
-//     var pivot =
-//         Number(blocks[r].childNodes[0].innerHTML);
-//     var i = l - 1;
-//     blocks[r].style.backgroundColor = "red";
-//     document.
-//         getElementsByClassName("range")[0].innerText = `[${l},${r}]`;
-
-//     for (var j = l; j <= r - 1; j++) {
-//         // To change background-color of the
-//         // blocks to be compared
-//         blocks[j].style.backgroundColor = "yellow";
-//         // To wait for 700 milliseconds
-//         await new Promise((resolve) =>
-//             setTimeout(() => {
-//                 resolve();
-//             }, delay)
-//         );
-//         var value =
-//             Number(blocks[j].childNodes[0].innerHTML);
-
-//         // To compare value of two blocks
-//         if (value < pivot) {
-//             i++;
-//             var temp1 = blocks[i].style.height;
-//             var temp2 = blocks[i].childNodes[0].innerText;
-//             blocks[i].style.height = blocks[j].style.height;
-//             blocks[j].style.height = temp1;
-//             blocks[i].childNodes[0].innerText =
-//                 blocks[j].childNodes[0].innerText;
-//             blocks[j].childNodes[0].innerText = temp2;
-//             blocks[i].style.backgroundColor = "orange";
-//             if (i != j) blocks[j].style.backgroundColor = "pink";
-//             //To wait for 700 milliseconds
-//             await new Promise((resolve) =>
-//                 setTimeout(() => {
-//                     resolve();
-//                 }, delay)
-//             );
-//         } else blocks[j].style.backgroundColor = "pink";
-//     }
-//     // Swapping the ith with pivot element
-//     i++;
-//     var temp1 = blocks[i].style.height;
-//     var temp2 = blocks[i].childNodes[0].innerText;
-//     blocks[i].style.height = blocks[r].style.height;
-//     blocks[r].style.height = temp1;
-//     blocks[i].childNodes[0].innerText =
-//         blocks[r].childNodes[0].innerText;
-//     blocks[r].childNodes[0].innerText = temp2;
-//     blocks[r].style.backgroundColor = "pink";
-//     blocks[i].style.backgroundColor = "green";
-
-//     // To wait for 2100 milliseconds
-//     await new Promise((resolve) =>
-//         setTimeout(() => {
-//             resolve();
-//         }, delay * 3)
-//     );
-//     document.getElementsByClassName("range")[0].innerText = "";
-//     for (var k = 0; k < 20; k++)
-//         blocks[k].style.backgroundColor = "#6b5b95";
-//     return i;
-// }

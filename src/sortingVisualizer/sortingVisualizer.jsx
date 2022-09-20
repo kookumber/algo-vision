@@ -114,7 +114,7 @@ export default class SortingVisualizer extends React.Component {
 
     render() {
 
-        const { itemArr, selectedAlgo } = this.state;
+        const { itemArr } = this.state;
 
         const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Insertion Sort']
         return (

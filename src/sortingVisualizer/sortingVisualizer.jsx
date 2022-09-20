@@ -4,7 +4,8 @@ import './selectBox.scss'
 import { randomIntFromInterval} from "../utils/utils";
 import { mergeSort } from "../sortingAlgos/mergeSortAlgo";
 import { swap } from "../sortingAlgos/bubbleSortAlgo";
-import { quickSort, lometo_partition } from "../sortingAlgos/quickSortAlgo";
+import { quickSort } from "../sortingAlgos/quickSortAlgo";
+import { insertionSort } from "../sortingAlgos/insertionSortAlgo";
 
 
 
@@ -106,6 +107,8 @@ export default class SortingVisualizer extends React.Component {
             this.bubbleSort()
         } else if (this.state.selectedAlgo === "Merge Sort") {
             mergeSort(this.state.itemArr, this.state.animationSpeed, this.state.primaryColor, this.state.secondaryColor)
+        } else if (this.state.selectedAlgo === "Insertion Sort") {
+            insertionSort(this.state.animationSpeed)
         }
     }
 
@@ -113,7 +116,7 @@ export default class SortingVisualizer extends React.Component {
 
         const { itemArr, selectedAlgo } = this.state;
 
-        const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort']
+        const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Insertion Sort']
         return (
         <>
         <header>
@@ -185,6 +188,8 @@ export default class SortingVisualizer extends React.Component {
                     <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button>
                 </div>
             </div>
+
+            {/* --------- GENERATE BARS FOR OUR SORTING --------- */}
             <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
             {
                 itemArr.map((val, idx) => {

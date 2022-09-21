@@ -1,6 +1,6 @@
 
 import './App.scss';
-import SortingVisualizer from './sortingVisualizer/sortingVisualizer';
+import SortingVisualizer from './Visualizers/sortingVisualizer';
 
 function App() {
   return (

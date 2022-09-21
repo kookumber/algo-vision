@@ -6,6 +6,7 @@ import { mergeSort } from "../sortingAlgos/mergeSortAlgo";
 import { swap } from "../sortingAlgos/bubbleSortAlgo";
 import { quickSort } from "../sortingAlgos/quickSortAlgo";
 import { insertionSort } from "../sortingAlgos/insertionSortAlgo";
+import PathFinder from "./Pathfinder/pathFinder";
 
 
 
@@ -20,10 +21,13 @@ export default class SortingVisualizer extends React.Component {
             tertiaryColor: '#00ffd2',
             animationSpeed: 15,
             algoDesc: "",
-            selectedAlgo: ""
+            selectedAlgo: "",
+            algoCategory: "",
+            
         }
         this.updateArrLength = this.updateArrLength.bind(this)
         this.updateSpeed = this.updateSpeed.bind(this)
+        this.displayGrid = this.displayGrid.bind(this)
     }
 
     // When app or component loads first time, the array is reset
@@ -38,6 +42,9 @@ export default class SortingVisualizer extends React.Component {
         }
         this.setState({ itemArr: arr })
         this.resetColor()
+    }
+
+    resetNodes(){
 
     }
 
@@ -61,12 +68,34 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
-    // selectAlgo(e, val){
-    //     console.log(val)
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    //     this.setState({ selectedAlgo: val})
-    // }
+    displayGrid() {
+        if (this.state.algoCategory === 'Sorting' || this.state.algoCategory === "") {
+            return (
+                <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
+                    {
+                        this.state.itemArr.map((val, idx) => {
+                            return (
+
+                                <div className="bar"
+                                    key={idx}
+                                    style={{
+                                        height: `${val}px`,
+                                        backgroundColor: `${this.state.primaryColor}`
+                                    }}>
+                                    {/* <div>{itemArr.length <= 20 ? val : null}</div> */}
+                                </div>
+
+                            )
+                        })
+                    }
+                </div>
+            )
+        } else if (this.state.algoCategory === "Pathfinding") {
+            return (
+                <PathFinder></PathFinder>
+            )
+        }
+    }
 
     // Leaving bubble sort function here instead of using import function because 
     // we can use the animation speed state to toggle speed as the sorting is running
@@ -114,9 +143,10 @@ export default class SortingVisualizer extends React.Component {
 
     render() {
 
-        const { itemArr } = this.state;
+        // const { itemArr } = this.state;
 
         const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Insertion Sort']
+        const algoCategory = ['Sorting', 'Pathfinding']
         return (
         <>
         <header>
@@ -158,11 +188,38 @@ export default class SortingVisualizer extends React.Component {
                 </div>
                 <div className="algo-configs">
                     <div className="algo-selectors">
-                        {/*--------- SETUP DROPDOWN MENU FOR ALGOS! ---------*/}
+                        <ul className="select">
+                            <li className="place_holder">
+                                <input className="select_close" type="radio" name="category" id="category-close" value="" />
+                                <span className="select_label select_label-placeholder">Algorithm Category</span>
+                            </li>
+                            <li className="select_items">
+                                <input className="select_expand" type="radio" name="category" id="category-opener" />
+                                <label className="select_closeLabel" htmlFor="category-close"></label>
+
+                                <ul className="select_options">
+                                    {
+                                        algoCategory.map((category, idx) => {
+                                            return (
+                                                <li className="select_option" key={idx} onClick={e => this.setState({ algoCategory: category })}>
+                                                    <input className="select_input" type="radio" name="category" id={category} />
+                                                    <label className="select_label" htmlFor={category}>{category}</label>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
+                                <label className="select_expandLabel" htmlFor="category-opener"></label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/*--------- SETUP DROPDOWN MENU FOR ALGOS! ---------*/}
+                    <div className="algo-selectors">
                         <ul className="select">
                             <li className="place_holder">
                                 <input className="select_close" type="radio" name="algorithm" id="algorithm-close" value=""/>
-                                <span className="select_label select_label-placeholder">Select Algo</span>
+                                <span className="select_label select_label-placeholder">Select Algorithm</span>
                             </li>
                             <li className="select_items">
                                 <input className="select_expand" type="radio" name="algorithm" id="algorithm-opener" />
@@ -183,29 +240,14 @@ export default class SortingVisualizer extends React.Component {
                                 <label className="select_expandLabel" htmlFor="algorithm-opener"></label>
                             </li>
                         </ul>
-                        {/*--------- END DROPDOWN MENU! ---------*/}
                     </div>
+                        {/*--------- END DROPDOWN MENU! ---------*/}
                     <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button>
                 </div>
             </div>
 
             {/* --------- GENERATE BARS FOR OUR SORTING --------- */}
-            <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
-            {
-                itemArr.map((val, idx) => {
-                    return (
-                        <div className="bar" 
-                             key={idx}
-                             style={{
-                                height: `${val}px`,
-                                backgroundColor: `${this.state.primaryColor}`}}>
-                            {/* <div>{itemArr.length <= 20 ? val : null}</div> */}
-                        </div>
-                    )
-                })
-            }
-            
-            </div>
+            { this.displayGrid() }
         </div>
         </>
         )

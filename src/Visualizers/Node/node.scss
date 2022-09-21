@@ -1,0 +1,32 @@
+
+
+$background: #011627;
+$line-color: #b4b4b438;
+$border-rad: 4px;
+$black: #575656;
+$cyan: #21c7a8;
+$tokyo-pink: #fa1593;
+$tokyo-blue: #0DD3FE;
+$tokyo-blue-mid: #00ccfd;
+$tokyo-yellow: #F9BD25;
+$tokyo-purple: #2011a2;
+$tokyo-light-purple: #cc00ff;
+$tokyo-green: #00ffd2;
+$tokyo-neon-green: #39FF14;
+$test: #6b5b95;
+$font-size-mid: 15px;
+
+.node {
+    width: 20px;
+    height: 20px;
+    border: 1px solid $line-color;
+}
+
+.node-finish {
+    background-color: $tokyo-pink;
+}
+
+.node-start {
+    background-color: $tokyo-green;
+}
+

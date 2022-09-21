@@ -29,7 +29,7 @@ export const insertionSort = async (animationSpeed = 300) => {
         await new Promise((resolve) => 
             setTimeout(() => {
                 resolve()
-            }, animationSpeed * 50)
+            }, animationSpeed * 10)
         )
 
         // Now we want to place selected element at the correct position
@@ -48,7 +48,7 @@ export const insertionSort = async (animationSpeed = 300) => {
             await new Promise((resolve) =>
                 setTimeout(() => {
                     resolve();
-                }, animationSpeed * 50)
+                }, animationSpeed * 10)
             );
 
             // Style bars that are sorted

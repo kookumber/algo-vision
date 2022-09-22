@@ -7,8 +7,8 @@ export default class Node extends React.Component {
         const {
             col,
             row,
-            isFinish,
             isStart,
+            isFinish,
             isWall,
             onMouseDown,
             onMouseEnter,

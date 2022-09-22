@@ -3,6 +3,7 @@ import { randomIntFromInterval } from "../../utils/utils";
 import Node from "../Node/node";
 import './pathFinder.scss'
 import { dijkstrasAlgo, getNodesInShortestPathOrder } from "../../pathFindingAlgos/dijkstrasAlgo";
+// import { generateBasicMaze } from "./animations/generateMaze";
 
 export default class PathFinder extends React.Component {
 
@@ -94,12 +95,36 @@ export default class PathFinder extends React.Component {
         }
     }
 
+    runPathFinderMaze() {
+        this.generateBasicMaze(this.state.nodes)
+    }
+
+    generateBasicMaze() {
+        // console.log(nodes)
+        this.state.nodes.forEach((row, idxRow) => {
+            row.forEach((node, idxCol) => {
+                const { row, col, isStart, isFinish, isWall } = node
+
+                let randomNum = Math.random()
+                // let currentHTMLNode = document.getElementById(`node-${row}-${col}`)
+                // console.log(currentHTMLNode)
+                let randomNumTwo = node.isWall ? 0.25 : 0.35
+
+                if (randomNum < randomNumTwo && !node.isStart && !node.isFinish) {
+                    this.state.nodes[idxRow][idxCol].isWall = true
+                    document.getElementById(`node-${row}-${col}`).className = 'node node-wall'
+                }
+            })
+        })
+    }
+
 
     render() {
         const { nodes } = this.state
 
         return (
             <>
+            <button onClick={() => this.generateBasicMaze()}>Test Maze Create</button>
             <button onClick={() => this.visualizeDijkstra()}>Run Dijkstra</button>
             <div className="grid">
                 {nodes.map((row, rowIdx) => {

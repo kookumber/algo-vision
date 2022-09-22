@@ -39,11 +39,12 @@ body {
     font-size: 30px;
     text-align: start;
     font-weight: 900;
-    width: 80%;
+    width: 90%;
     margin-top: 30px;
+    // margin-left: 30px;
 
     span {
-        font-size: 18px;
+        font-size: 14px;
         color: $tokyo-pink;
     }
 }
@@ -63,7 +64,7 @@ body {
 .user-buttons {
     min-width: 920px;
     height: 60px;
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -166,13 +167,37 @@ body {
         // justify-content: flex-start;
         align-items: center;
         
-        & .run-button {
-            padding: 0;
-            margin: 0px;
-            margin-left: 15px;
-            // margin-top: auto;
-        }
+        
     }
+}
+
+.sorting-nav {
+    @include flex-row();
+    width: 80%;
+    min-width: 600px;
+    justify-content: flex-start;
+
+    margin-top: 60px;
+}
+
+.run-button {
+    padding: 0;
+    margin: 0px;
+    color: black;
+    height: 40px;
+    width: 120px;
+    margin-top: 10px;
+    border-radius: $border-rad;
+    border: none;
+    font-size: $font-size-mid;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: $tokyo-pink;
+
+    &:hover {
+        background-color: $tokyo-green;
+    }
+    // margin-top: auto;
 }
 
 .algo-desc-container {
@@ -187,7 +212,7 @@ body {
     width: 80%;
     min-height: 550px;
     height: 70%;
-    margin-top: 140px;
+    margin-top: 100px;
     // float:inline-end;
     box-sizing: border-box;
     padding: 20px;

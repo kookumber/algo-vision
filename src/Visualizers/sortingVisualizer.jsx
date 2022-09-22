@@ -48,6 +48,10 @@ export default class SortingVisualizer extends React.Component {
 
     }
 
+    parentCallBack(func) {
+        return func
+    }
+
     resetColor(){
         let arr = this.state.itemArr
         const arrBars = document.getElementsByClassName('bar')
@@ -71,7 +75,11 @@ export default class SortingVisualizer extends React.Component {
     displayGrid() {
         if (this.state.algoCategory === 'Sorting' || this.state.algoCategory === "") {
             return (
-                <div className="arr-wrap" id="arr-wrap" style={{ width: '70%' }}>
+                <>
+                <div className="sorting-nav">
+                    <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button> 
+                </div>
+                <div className="arr-wrap" id="arr-wrap" style={{ width: '80%' }}>
                     {
                         this.state.itemArr.map((val, idx) => {
                             return (
@@ -89,10 +97,11 @@ export default class SortingVisualizer extends React.Component {
                         })
                     }
                 </div>
+                </>
             )
         } else if (this.state.algoCategory === "Pathfinding") {
             return (
-                <PathFinder></PathFinder>
+                <PathFinder parentCallBack={this.parentCallBack}></PathFinder>
             )
         }
     }
@@ -143,10 +152,10 @@ export default class SortingVisualizer extends React.Component {
 
     render() {
 
-        // const { itemArr } = this.state;
-
+        const { algoCategory } = this.state;
         const sortAlgos = ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Insertion Sort']
-        const algoCategory = ['Sorting', 'Pathfinding']
+        const pathFindingAlgos = ["Dijkstra's Algorithm"]
+        const algoCategories = ['Sorting', 'Pathfinding']
         return (
         <>
         <header>
@@ -187,6 +196,7 @@ export default class SortingVisualizer extends React.Component {
                     </div>
                 </div>
                 <div className="algo-configs">
+                    {/*--------- SETUP DROPDOWN MENU FOR CATEGORIES! ---------*/}
                     <div className="algo-selectors">
                         <ul className="select">
                             <li className="place_holder">
@@ -199,7 +209,7 @@ export default class SortingVisualizer extends React.Component {
 
                                 <ul className="select_options">
                                     {
-                                        algoCategory.map((category, idx) => {
+                                        algoCategories.map((category, idx) => {
                                             return (
                                                 <li className="select_option" key={idx} onClick={e => this.setState({ algoCategory: category })}>
                                                     <input className="select_input" type="radio" name="category" id={category} />
@@ -227,7 +237,7 @@ export default class SortingVisualizer extends React.Component {
 
                                 <ul className="select_options">
                                     {
-                                        sortAlgos.map((algo, idx) => {
+                                            (algoCategory === "Sorting" || algoCategory === "" ? sortAlgos : pathFindingAlgos).map((algo, idx) => {
                                             return (
                                                 <li className="select_option" key={idx} onClick={e => this.setState({selectedAlgo: algo})}>
                                                     <input className="select_input" type="radio" name="algorithm" id={algo}/>
@@ -242,7 +252,7 @@ export default class SortingVisualizer extends React.Component {
                         </ul>
                     </div>
                         {/*--------- END DROPDOWN MENU! ---------*/}
-                    <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button>
+                    {/* <button className="run-button" onClick={e => this.handleSelection(e)}>Run Algo</button> */}
                 </div>
             </div>
 

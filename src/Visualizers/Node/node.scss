@@ -6,13 +6,13 @@ $border-rad: 4px;
 $black: #575656;
 $cyan: #21c7a8;
 $tokyo-pink: #fa1593;
-$tokyo-blue: #0DD3FE;
+$tokyo-blue: #0dd2fe90;
 $tokyo-blue-mid: #00ccfd;
-$tokyo-yellow: #F9BD25;
+$tokyo-yellow: #f9bd25b1;
 $tokyo-purple: #2011a2;
-$tokyo-light-purple: #cc00ff;
-$tokyo-green: #00ffd2;
-$tokyo-neon-green: #39FF14;
+$tokyo-light-purple: #cc00ff89;
+$tokyo-green: #02d3ad;
+$tokyo-neon-green: #37ff148d;
 $test: #6b5b95;
 $font-size-mid: 15px;
 
@@ -30,3 +30,70 @@ $font-size-mid: 15px;
     background-color: $tokyo-green;
 }
 
+.node-shortest-path {
+    background-color: $tokyo-yellow;
+}
+
+.node-visited {
+    animation-name: visitedAnimation;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes visitedAnimation {
+    0% {
+        transform: scale(0.3);
+        background-color: $black;
+        border-radius: 100%;
+    }    
+    50% {
+        background-color: $tokyo-blue;
+    }
+
+    75% {
+        transform: scale(1.2);
+        background-color: $tokyo-neon-green;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: $tokyo-light-purple;
+    }
+}
+
+.node-wall {
+    background-color: $line-color;
+}
+
+.node-shortest-path {
+    animation-name: shortestPath;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes shortestPath {
+    0% {
+        transform: scale(0.6);
+        background-color: $tokyo-yellow;
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: $tokyo-yellow;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: $tokyo-yellow;
+    }
+}

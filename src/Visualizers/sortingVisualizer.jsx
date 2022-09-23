@@ -72,6 +72,10 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
+    clearGrid(){
+        
+    }
+
     displayGrid() {
         if (this.state.algoCategory === 'Sorting' || this.state.algoCategory === "") {
             return (

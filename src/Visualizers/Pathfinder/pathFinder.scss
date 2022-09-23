@@ -1,7 +1,57 @@
+$background: #011627;
+$line-color: #637777;
+$border-rad: 4px;
+$black: #575656;
+$cyan: #21c7a8;
+$tokyo-pink: #fa1593;
+$tokyo-blue: #0DD3FE;
+$tokyo-blue-mid: #00ccfd;
+$tokyo-yellow: #F9BD25;
+$tokyo-purple: #2011a2;
+$tokyo-light-purple: #cc00ff;
+$tokyo-green: #00ffd2;
+$tokyo-neon-green: #39FF14;
+$test: #6b5b95;
+$font-size-mid: 15px;
+
+
+.pathfinding-nav {
+    margin-top: 70px;
+
+    button {
+        color: black;
+        height: 40px;
+        width: 120px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: 10px;
+        // margin-left: 0px;
+        // margin-right: 20px;
+        border-radius: $border-rad;
+        border: none;
+        font-size: $font-size-mid;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: $tokyo-pink;
+
+        &:hover {
+            background-color: $tokyo-green;
+        }
+    }
+
+    .pathfinding-buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 .grid {
-    margin-top: 100px;
+    margin-top: 60px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-
+    margin-bottom: 100px;
 }
+

@@ -1,9 +1,12 @@
 import React from "react";
-import { randomIntFromInterval } from "../../utils/utils";
-import Node from "../Node/node";
+import Node from "./Node/node";
 import './pathFinder.scss'
 import { dijkstrasAlgo, getNodesInShortestPathOrder } from "../../pathFindingAlgos/dijkstrasAlgo";
-// import { generateBasicMaze } from "./animations/generateMaze";
+import { generateBasicMaze } from "./mazeAlgos/basicMaze";
+import { createNode } from "./Node/createNodeObject";
+import { clearGrid } from "./clearingFunctions/clearGrid";
+import { clearWalls } from "./clearingFunctions/clearWalls"
+// import { generateRecursiveMaze } from "./mazeAlgos/recursiveMaze"
 
 export default class PathFinder extends React.Component {
 
@@ -19,8 +22,6 @@ export default class PathFinder extends React.Component {
             mouseIsPressed: false
         }
     }
-
-
 
     componentDidMount(){
         this.generateNodes(this.state.graphSize)
@@ -66,66 +67,40 @@ export default class PathFinder extends React.Component {
 
     generateNodes(graphSize) {
         const nodesArr = []
-
+        const { startNodeRow, startNodeCol, finishNodeRow, finishNodeCol } = this.state
         for(let row = 0; row < graphSize * 2; row++){
             const currentRow = []
 
             for(let col = 0; col < graphSize; col++){
-                currentRow.push(this.createNode(row, col))
+                // CreateNode is imported function which simply create hash with specified parameters
+                currentRow.push(createNode(row, col, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol))
             }
             nodesArr.push(currentRow)
         }
         this.setState({ nodes: nodesArr })
     }
 
-    createNode(row, col) {
-
-        const { startNodeRow, startNodeCol, finishNodeRow, finishNodeCol } = this.state
-        return {
-            row: row,
-            col: col,
-            isStart: row === startNodeRow && col === startNodeCol,
-            isFinish: row === finishNodeRow && col === finishNodeCol,
-            distance: Infinity,
-            distanceToFinishNode: Math.abs(finishNodeRow - row) + Math.abs(finishNodeCol - col),
-            isVisited: false,
-            isWall: false,
-            previousNode: null,
-            isNode: true
-        }
+    handleClear() {
+        const { nodes, finishNodeRow, finishNodeCol } = this.state
+        clearWalls(nodes, finishNodeRow, finishNodeCol)
+        clearGrid(nodes, finishNodeRow, finishNodeCol)
     }
-
-    runPathFinderMaze() {
-        this.generateBasicMaze(this.state.nodes)
-    }
-
-    generateBasicMaze() {
-        // console.log(nodes)
-        this.state.nodes.forEach((row, idxRow) => {
-            row.forEach((node, idxCol) => {
-                const { row, col, isStart, isFinish, isWall } = node
-
-                let randomNum = Math.random()
-                // let currentHTMLNode = document.getElementById(`node-${row}-${col}`)
-                // console.log(currentHTMLNode)
-                let randomNumTwo = node.isWall ? 0.25 : 0.35
-
-                if (randomNum < randomNumTwo && !node.isStart && !node.isFinish) {
-                    this.state.nodes[idxRow][idxCol].isWall = true
-                    document.getElementById(`node-${row}-${col}`).className = 'node node-wall'
-                }
-            })
-        })
-    }
-
 
     render() {
-        const { nodes } = this.state
+        const { nodes, finishNodeRow, finishNodeCol } = this.state
 
         return (
             <>
-            <button onClick={() => this.generateBasicMaze()}>Test Maze Create</button>
-            <button onClick={() => this.visualizeDijkstra()}>Run Dijkstra</button>
+            {/* <button onClick={() => generateRecursiveMaze(nodes, 1, (this.state.graphSize * 2) - 3, 1, this.state.graphSize - 3)}>Recursive Maze</button> */}
+            <div className="pathfinding-nav">
+                <div className="pathfinding-legend">
+                </div>
+                <div className="pathfinding-buttons-container">
+                    <button onClick={() => this.handleClear()}>Clear Grid</button>
+                    <button onClick={() => generateBasicMaze(nodes)}>Test Maze Create</button>
+                    <button onClick={() => this.visualizeDijkstra()}>Run Dijkstra</button>
+                </div>
+            </div>
             <div className="grid">
                 {nodes.map((row, rowIdx) => {
                     return <div key={rowIdx}>

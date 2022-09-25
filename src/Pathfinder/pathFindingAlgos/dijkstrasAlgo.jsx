@@ -54,12 +54,3 @@ const getUnvisitedNeighbors = (node, grid) => {
     return neighbors.filter(neighbor => neighbor.isVisited === false )
 }
 
-export const getNodesInShortestPathOrder = (finishNode) => {
-    const nodesInShortestPath = []
-    let currentNode = finishNode
-    while (currentNode !== null) {
-        nodesInShortestPath.unshift(currentNode)
-        currentNode = currentNode.previousNode
-    }
-    return nodesInShortestPath
-}

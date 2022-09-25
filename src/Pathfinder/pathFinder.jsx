@@ -1,11 +1,13 @@
 import React from "react";
 import Node from "./Node/node";
 import './pathFinder.scss'
-import { dijkstrasAlgo, getNodesInShortestPathOrder } from "../../pathFindingAlgos/dijkstrasAlgo";
+import { dijkstrasAlgo } from "./pathFindingAlgos/dijkstrasAlgo";
 import { generateBasicMaze } from "./mazeAlgos/basicMaze";
 import { createNode } from "./Node/createNodeObject";
 import { clearGrid } from "./clearingFunctions/clearGrid";
 import { clearWalls } from "./clearingFunctions/clearWalls"
+import { getNodesInShortestPathOrder } from "./animations/shortestPathOrder";
+import { dfs } from "./pathFindingAlgos/dfs";
 // import { generateRecursiveMaze } from "./mazeAlgos/recursiveMaze"
 
 export default class PathFinder extends React.Component {
@@ -39,7 +41,7 @@ export default class PathFinder extends React.Component {
         }
     }
 
-    animateDijkStra(visitedNodesInOrder, nodesInShortestPath) {
+    animatePathfinder(visitedNodesInOrder, nodesInShortestPath) {
         for (let i = 0; i <= visitedNodesInOrder.length; i++) {
             if (i === visitedNodesInOrder.length) {
                 setTimeout(() => {
@@ -56,13 +58,13 @@ export default class PathFinder extends React.Component {
         }
     }
 
-    visualizeDijkstra() {
+    visualizePathfinder(algo) {
         const {nodes, startNodeCol, startNodeRow, finishNodeCol, finishNodeRow } = this.state
         const startNode = nodes[startNodeRow][startNodeCol]
         const finishNode = nodes[finishNodeRow][finishNodeCol]
-        const visitedNodesInOrder = dijkstrasAlgo(nodes, startNode, finishNode)
+        const visitedNodesInOrder = algo(nodes, startNode, finishNode)
         const nodesInShortestPath = getNodesInShortestPathOrder(finishNode)
-        this.animateDijkStra(visitedNodesInOrder, nodesInShortestPath)
+        this.animatePathfinder(visitedNodesInOrder, nodesInShortestPath)
     }   
 
     generateNodes(graphSize) {
@@ -98,7 +100,7 @@ export default class PathFinder extends React.Component {
                 <div className="pathfinding-buttons-container">
                     <button onClick={() => this.handleClear()}>Clear Grid</button>
                     <button onClick={() => generateBasicMaze(nodes)}>Test Maze Create</button>
-                    <button onClick={() => this.visualizeDijkstra()}>Run Dijkstra</button>
+                    <button onClick={() => this.visualizePathfinder(dfs)}>Run Dijkstra</button>
                 </div>
             </div>
             <div className="grid">

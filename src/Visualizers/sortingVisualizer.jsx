@@ -6,7 +6,7 @@ import { mergeSort } from "../sortingAlgos/mergeSortAlgo";
 import { swap } from "../sortingAlgos/bubbleSortAlgo";
 import { quickSort } from "../sortingAlgos/quickSortAlgo";
 import { insertionSort } from "../sortingAlgos/insertionSortAlgo";
-import PathFinder from "./Pathfinder/pathFinder";
+import PathFinder from "../Pathfinder/pathFinder";
 
 
 
@@ -44,9 +44,6 @@ export default class SortingVisualizer extends React.Component {
         this.resetColor()
     }
 
-    resetNodes(){
-
-    }
 
     parentCallBack(func) {
         return func
@@ -72,9 +69,6 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ animationSpeed: val })
     }
 
-    clearGrid(){
-        
-    }
 
     displayGrid() {
         if (this.state.algoCategory === 'Sorting' || this.state.algoCategory === "") {

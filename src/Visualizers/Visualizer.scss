@@ -64,7 +64,7 @@ body {
 .user-buttons {
     min-width: 920px;
     height: 60px;
-    width: 90%;
+    width: 85%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -166,38 +166,16 @@ body {
         @include flex-row();
         // justify-content: flex-start;
         align-items: center;
-        
-        
     }
 }
 
-.sorting-nav {
-    @include flex-row();
-    width: 80%;
-    min-width: 600px;
-    justify-content: flex-start;
 
-    margin-top: 60px;
-}
-
-.run-button {
-    padding: 0;
-    margin: 0px;
-    color: black;
+.title-container {
+    width: 85%;
     height: 40px;
-    width: 120px;
-    margin-top: 10px;
-    border-radius: $border-rad;
-    border: none;
-    font-size: $font-size-mid;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: $tokyo-pink;
-
-    &:hover {
-        background-color: $tokyo-green;
+    .title {
+        color: white;
     }
-    // margin-top: auto;
 }
 
 .algo-desc-container {
@@ -207,21 +185,6 @@ body {
     }
 }
 
-.arr-wrap {
-    min-width: 600px;
-    width: 80%;
-    min-height: 550px;
-    height: 70%;
-    margin-top: 100px;
-    // float:inline-end;
-    box-sizing: border-box;
-    padding: 20px;
-    display: flex;
-    transform: rotate(180deg);
-    transform: scale(1, -1);
-    justify-content: space-evenly;
-    
-}
 
 
 .bar {

@@ -17,6 +17,10 @@ $font-size-mid: 15px;
 
 .pathfinding-nav {
     margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
 
     button {
         color: black;

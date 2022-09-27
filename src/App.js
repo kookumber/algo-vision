@@ -1,11 +1,11 @@
 
 import './App.scss';
-import SortingVisualizer from './Visualizers/sortingVisualizer';
+import Visualizer from './Visualizers/Visualizer';
 
 function App() {
   return (
     <div className="App">
-      <SortingVisualizer></SortingVisualizer>
+      <Visualizer></Visualizer>
     </div>
   );
 }

@@ -1,0 +1,128 @@
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+$background: #011627;
+$line-color: #637777;
+$border-rad: 4px;
+$black: #575656;
+$cyan: #21c7a8;
+$tokyo-pink: #fa1593;
+$tokyo-blue: #0DD3FE;
+$tokyo-blue-mid: #00ccfd;
+$tokyo-yellow: #F9BD25;
+$tokyo-purple: #2011a2;
+$tokyo-light-purple: #cc00ff;
+$tokyo-green: #00ffd2;
+$tokyo-neon-green: #39FF14;
+$test: #6b5b95;
+$font-size-mid: 15px;
+
+.arr-range-selector {
+    width: 175px;
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 10;
+
+    h4 {
+        margin: 0;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        color: $tokyo-pink;
+        font-size: 15px;
+        line-height: 15px;
+    }
+
+    #speed-header {
+        margin-left: 40px;
+    }
+
+    input {
+        margin-left: 10px;
+        width: 100%;
+    }
+
+    #speed-control {
+        direction: rtl;
+        margin-left: 40px;
+    }
+
+    div {
+        width: 100%;
+        @include flex-row();
+        justify-content: space-between;
+        margin-left: 40px;
+
+        span {
+            color: white;
+            font-size: 12px;
+        }
+    }
+}
+
+.sorting-nav {
+    @include flex-row();
+    justify-content: space-between;
+    width: 85%;
+    min-width: 600px;
+    // justify-content: flex-end;
+
+    margin-top: 60px;
+}
+
+.configs {
+    @include flex-row()
+}
+
+button {
+    padding: 0;
+    margin: 0px;
+    color: black;
+    height: 40px;
+    width: 120px;
+    margin-left: 10px;
+    margin-right: 10px;
+    // margin-top: 10px;
+    border-radius: $border-rad;
+    border: none;
+    font-size: $font-size-mid;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: $tokyo-pink;
+
+    &:hover {
+        background-color: $tokyo-green;
+    }
+
+    // margin-top: auto;
+}
+
+.arr-wrap {
+    min-width: 600px;
+    width: 85%;
+    min-height: 550px;
+    height: 70%;
+    margin-top: 40px;
+    // float:inline-end;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    transform: rotate(180deg);
+    transform: scale(1, -1);
+    justify-content: space-evenly;
+    z-index: -2;
+}

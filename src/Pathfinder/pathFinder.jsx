@@ -6,8 +6,9 @@ import { generateBasicMaze } from "./mazeAlgos/basicMaze";
 import { createNode } from "./Node/createNodeObject";
 import { clearGrid } from "./clearingFunctions/clearGrid";
 import { clearWalls } from "./clearingFunctions/clearWalls"
-import { getNodesInShortestPathOrder } from "./animations/shortestPathOrder";
+import { getNodesInShortestPathOrder } from "./utils/shortestPathOrder";
 import { dfs } from "./pathFindingAlgos/dfs";
+import { aStar } from "./pathFindingAlgos/aStar";
 // import { generateRecursiveMaze } from "./mazeAlgos/recursiveMaze"
 
 export default class PathFinder extends React.Component {
@@ -89,7 +90,7 @@ export default class PathFinder extends React.Component {
     }
 
     render() {
-        const { nodes, finishNodeRow, finishNodeCol } = this.state
+        const { nodes } = this.state
 
         return (
             <>
@@ -100,7 +101,7 @@ export default class PathFinder extends React.Component {
                 <div className="pathfinding-buttons-container">
                     <button onClick={() => this.handleClear()}>Clear Grid</button>
                     <button onClick={() => generateBasicMaze(nodes)}>Test Maze Create</button>
-                    <button onClick={() => this.visualizePathfinder(dfs)}>Run Dijkstra</button>
+                    <button onClick={() => this.visualizePathfinder(aStar)}>Run Dijkstra</button>
                 </div>
             </div>
             <div className="grid">

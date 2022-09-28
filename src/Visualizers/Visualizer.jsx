@@ -1,11 +1,6 @@
 import React from "react";
 import './Visualizer.scss'
 import './selectBox.scss'
-import { randomIntFromInterval} from "../utils/utils";
-import { mergeSort } from "../Sorting/algos/mergeSortAlgo";
-import { swap } from "../Sorting/algos/bubbleSortAlgo";
-import { quickSort } from "../Sorting/algos/quickSortAlgo";
-import { insertionSort } from "../Sorting/algos/insertionSortAlgo";
 import PathFinder from "../Pathfinder/pathFinder";
 import Sorting from "../Sorting/Sorting";
 
@@ -56,7 +51,6 @@ export default class Visualizer extends React.Component {
 
     render() {
 
-        const pathFindingAlgos = ["Dijkstra's Algorithm"]
         const algoCategories = ['Sorting', 'Pathfinding']
         return (
         <>

@@ -1,5 +1,19 @@
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 $background: #011627;
-$line-color: #637777;
+$line-color: #b4b4b44f;
 $border-rad: 4px;
 $black: #575656;
 $cyan: #21c7a8;
@@ -8,11 +22,12 @@ $tokyo-blue: #0DD3FE;
 $tokyo-blue-mid: #00ccfd;
 $tokyo-yellow: #F9BD25;
 $tokyo-purple: #2011a2;
-$tokyo-light-purple: #cc00ff;
+$tokyo-light-purple: #cc00ff5e;
 $tokyo-green: #00ffd2;
 $tokyo-neon-green: #39FF14;
 $test: #6b5b95;
 $font-size-mid: 15px;
+
 
 
 .pathfinding-nav {
@@ -51,8 +66,55 @@ $font-size-mid: 15px;
     }
 }
 
+.title-container {
+    margin-top: 15px;
+}
+
+.pathfinding-legend {
+    width: 85%;
+    @include flex-row();
+    margin-top: 35px;
+    // justify-content: space-between;
+
+    .legend-items {
+        @include flex-row();
+        margin-left: 15px;
+        margin-right: 15px;
+
+        .square {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        #start {
+            background-color: $tokyo-green;
+        }
+
+        #target {
+            background-color: $tokyo-pink;
+        }
+
+        #wall {
+            background-color: $line-color;
+        }
+
+        #visited {
+            background-color: $tokyo-light-purple;
+        }
+
+        #path {
+            background-color: $tokyo-yellow;
+        }
+
+        .legend-text {
+            color: white
+        }
+    }
+}
+
 .grid {
-    margin-top: 60px;
+    margin-top: 40px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;

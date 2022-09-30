@@ -1,4 +1,4 @@
-import { getAllNodes, getUnvisitedNeighbors } from "../utils/nodesUtil"
+import { getUnvisitedNeighbors } from "../utils/nodesUtil"
 
 
 export const bfs = (grid, startNode, finishNode) => {

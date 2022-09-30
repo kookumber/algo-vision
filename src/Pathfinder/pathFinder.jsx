@@ -211,7 +211,7 @@ export default class PathFinder extends React.Component {
         if (!isRunning) {
             if (mouseIsPressed) {
                 const nodeClass = document.getElementById(`node-${row}-${col}`).className
-                if (this.state.isStartNode) {
+                if (isStartNode) {
                     if (nodeClass !== 'node node-wall') {
 
                         const prevStartNode = nodes[currRow][currCol]
@@ -227,7 +227,7 @@ export default class PathFinder extends React.Component {
                         document.getElementById(`node-${row}-${col}`).className = 'node node-start'
                     }
                     this.setState({ startNodeRow: row, startNodeCol: col})
-                } else if (this.state.isFinishNode) {
+                } else if (isFinishNode) {
                     if (nodeClass !== 'node node-wall') {
 
                         const prevFinishNode = nodes[currRow][currCol]
@@ -242,7 +242,7 @@ export default class PathFinder extends React.Component {
                         document.getElementById(`node-${row}-${col}`).className = 'node node-finish'
                     }
                     this.setState({ finishNodeRow: row, finishNodeCol: col })
-                } else if (this.state.isWallNode) {
+                } else if (isWallNode) {
                     const newGrid = this.getNewGridWithWallToggled(nodes, row, col)
                     this.setState({ nodes: newGrid })
                 }

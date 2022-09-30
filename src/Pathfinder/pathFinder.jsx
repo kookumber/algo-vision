@@ -336,9 +336,34 @@ export default class PathFinder extends React.Component {
                         <button onClick={() => { clearWalls(nodes, finishNodeRow, finishNodeCol); generateBasicMaze(nodes)}}>Generate Maze</button>
                 </div>
             </div>
+            
             <div className="title-container">
                 <h3 className="title">{this.state.selectedAlgo}</h3>
             </div>
+            {/* -------------- START LEGEND --------------*/}
+            <div className="pathfinding-legend">
+                <div className="legend-items">
+                    <div className="square" id="start"></div>
+                    <div className="legend-text">Start Node</div>
+                </div>
+                <div className="legend-items">
+                    <div className="square" id="target"></div>
+                    <div className="legend-text">Target Node</div>
+                </div>
+                <div className="legend-items">
+                    <div className="square" id="wall"></div>
+                    <div className="legend-text">Wall Node</div>
+                </div>
+                <div className="legend-items">
+                    <div className="square" id="visited"></div>
+                    <div className="legend-text">Visited</div>
+                </div>
+                <div className="legend-items">
+                    <div className="square" id="path"></div>
+                    <div className="legend-text">Shortest Path</div>
+                </div>
+            </div>
+            {/* -------------- START GRID --------------*/}
             {this.generateGrid()}
             </>
         )

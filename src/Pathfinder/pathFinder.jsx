@@ -36,9 +36,8 @@ export default class PathFinder extends React.Component {
         }
         this.handleMouseDown = this.handleMouseDown.bind(this)
         this.handleMouseLeave = this.handleMouseLeave.bind(this)
-        this.handleMouseEnter = this.handleMouseEnter.bind(this)
-        this.handleMouseUp = this.handleMouseUp.bind(this)
         this.toggleIsRunning = this.toggleIsRunning.bind(this)
+        
     }
 
     componentDidMount(){
@@ -191,7 +190,9 @@ export default class PathFinder extends React.Component {
                         currCol: col
                     })
                 }
-            } 
+            } else {
+                clearGrid(this.state.nodes, this.state.finishNodeRow, this.state.finishNodeCol)
+            }
         }
     }
 
@@ -210,7 +211,7 @@ export default class PathFinder extends React.Component {
         if (!isRunning) {
             if (mouseIsPressed) {
                 const nodeClass = document.getElementById(`node-${row}-${col}`).className
-                if (isStartNode) {
+                if (this.state.isStartNode) {
                     if (nodeClass !== 'node node-wall') {
 
                         const prevStartNode = nodes[currRow][currCol]
@@ -219,11 +220,14 @@ export default class PathFinder extends React.Component {
                         document.getElementById(`node-${currRow}-${currCol}`).className = 'node'
 
                         this.setState({ currRow: row, currCol: col})
+
+                        const currStartNode = nodes[row][col]
+                        currStartNode.isStart = true
                         
                         document.getElementById(`node-${row}-${col}`).className = 'node node-start'
                     }
                     this.setState({ startNodeRow: row, startNodeCol: col})
-                } else if (isFinishNode) {
+                } else if (this.state.isFinishNode) {
                     if (nodeClass !== 'node node-wall') {
 
                         const prevFinishNode = nodes[currRow][currCol]
@@ -238,7 +242,7 @@ export default class PathFinder extends React.Component {
                         document.getElementById(`node-${row}-${col}`).className = 'node node-finish'
                     }
                     this.setState({ finishNodeRow: row, finishNodeCol: col })
-                } else if (isWallNode) {
+                } else if (this.state.isWallNode) {
                     const newGrid = this.getNewGridWithWallToggled(nodes, row, col)
                     this.setState({ nodes: newGrid })
                 }
@@ -247,32 +251,29 @@ export default class PathFinder extends React.Component {
     }
 
     handleMouseUp(row, col){
-        // const {isRunning, isStartNode, isFinishNode } = this.state
-        if(!this.state.isRunning) {
+        const {isRunning, isStartNode, isFinishNode } = this.state
+        if(!isRunning) {
             this.setState({ mouseIsPressed: false })
-            if (this.state.isStartNode) {
-                const isStartNode = !this.state.isStartNode
-                this.setState({ isStartNode: isStartNode, startNodeRow: row, startNodeCol: col})
-            } else if (this.state.isFinishNode) {
-                const isFinishNode = !this.state.isFinishNode
-                this.setState({ isFinishNode: isFinishNode, finishNodeRow: row, finishNodeCol: col })
+            if (isStartNode) {
+                this.setState({ isStartNode: !isStartNode, startNodeRow: row, startNodeCol: col})
+            } else if (isFinishNode) {
+                this.setState({ isFinishNode: !isFinishNode, finishNodeRow: row, finishNodeCol: col })
             } 
             this.generateGrid()
         }
     }
 
     handleMouseLeave() {
+        const {isStartNode, isFinishNode, isWallNode } = this.state
+
         // We use this for the entire grid. When we leave, we track the nodes we've updated even if we don't
-        // Unclick or hit a mouse up event
-        if (this.state.isStartNode) {
-            const isStartNode = !this.state.isStartNode
-            this.setState({ isStartNode: isStartNode, mouseIsPressed: false})
-        } else if (this.state.isFinishNode){
-            const isFinishNode = !this.state.isFinishNode
-            this.setState({ isFinishNode: isFinishNode, mouseIsPressed: false})
-        } else if (this.state.isWallNode) {
-            const isWallNode = !this.state.isWallNode
-            this.setState({ isWallNode: isWallNode, mouseIsPressed: false})
+        // unclick or hit a mouse up event
+        if (isStartNode) {
+            this.setState({ isStartNode: !isStartNode, mouseIsPressed: false})
+        } else if (isFinishNode){
+            this.setState({ isFinishNode: !isFinishNode, mouseIsPressed: false})
+        } else if (isWallNode) {
+            this.setState({ isWallNode: !isWallNode, mouseIsPressed: false})
             this.generateGrid()
         }
     }

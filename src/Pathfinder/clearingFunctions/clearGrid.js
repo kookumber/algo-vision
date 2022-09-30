@@ -1,5 +1,4 @@
 export const clearGrid = (nodes, finishNodeRow, finishNodeCol) => {
-    // const { nodes, finishNodeRow, finishNodeCol } = this.state
     nodes.forEach((row) => {
         row.forEach((node) => {
 

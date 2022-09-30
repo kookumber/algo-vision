@@ -4,7 +4,7 @@ import { getAllNodes, getUnvisitedNeighbors } from "../utils/nodesUtil"
 export const bfs = (grid, startNode, finishNode) => {
 
     const visitedNodesInOrder = []
-    const unvisitedNodes = getAllNodes(grid)
+    // const unvisitedNodes = getAllNodes(grid)
     const queue = [startNode]
 
     while (queue.length > 0) {

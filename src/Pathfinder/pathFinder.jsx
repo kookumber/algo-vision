@@ -54,7 +54,7 @@ export default class PathFinder extends React.Component {
                 if (nodeClassName !== 'node node-start' && nodeClassName !== 'node node-finish') {
                     document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
                 }
-            }, 25 * i)
+            }, 15 * i)
         }
     }
 
@@ -63,7 +63,7 @@ export default class PathFinder extends React.Component {
             if (i === visitedNodesInOrder.length) {
                 setTimeout(() => {
                     this.animateShortestPath(nodesInShortestPath)
-                }, 5 * i)
+                }, this.props.animationSpeed * i)
             }
             setTimeout(() => {
                 const node = visitedNodesInOrder[i]
@@ -71,7 +71,7 @@ export default class PathFinder extends React.Component {
                 if (nodeClassName !== 'node node-start' && nodeClassName !== 'node node-finish'){
                     return node ? document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited' : null
                 }
-            }, 5 * i)
+            }, this.props.animationSpeed * i)
         }
     }
 

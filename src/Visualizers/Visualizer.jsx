@@ -44,7 +44,7 @@ export default class Visualizer extends React.Component {
             )
         } else if (algoCategory === "Pathfinding" || algoCategory === "") {
             return (
-                <PathFinder parentCallBack={this.parentCallBack}></PathFinder>
+                <PathFinder animationSpeed={this.state.animationSpeed} parentCallBack={this.parentCallBack}></PathFinder>
             )
         }
     }

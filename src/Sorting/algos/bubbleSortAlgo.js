@@ -3,7 +3,8 @@ export const swap = (ele1, ele2, speed) => {
     return new Promise ((resolve) => {
         // For exchanging styles of two blocks
         let temp = ele1.style.transform;
-        // temp = 'translate(29.91px)'
+        
+        
         let container = document.getElementById('arr-wrap')
         ele1.style.transform = ele2.style.transform;
         ele2.style.transform = temp

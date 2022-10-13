@@ -1,43 +1,19 @@
-// const quickSort = (arr) => {
-//     if (arr.length <= 1) {
-//         return arr
-//     } 
-
-//     let left = []
-//     let right = []
-//     let newArr = []
-//     let pivot = arr.pop()
-//     let length  = arr.length
-
-//     for (let i = 0; i < length; i++) {
-//         if (arr[i] <= pivot) {
-//             left.push(arr[i])
-//         } else {
-//             right.push(arr[i])
-//         }
-//     }
-
-//     return newArr.concat(quickSort(left), pivot, quickSort(right))
-// }
-
-
 // Pivot
 let pivotColor = "#00ffd2" //Seafoam Green
 // To be compared
 let compareColor = "#F9BD25" //Yellow
 // Less than pivot
 let lowerColor = "#0DD3FE" //Blue
-
 // Pivot moved positions
 let pivotMovedColor = "#fa1593" //Pink
-// Greater than pivot //
+// Greater than pivot
 let tokyoLighPurple = '#cc00ff'
 
 
 export const quickSort = async (left, right, delay = 100) => {
     if (left < right) {
         // Storing the index of pivot element after partition
-        let pivotIdx = await lometo_partition(left, right, delay);
+        let pivotIdx = await lomuto_partition(left, right, delay);
         // Recursively calling quicksort for left partition
         await quickSort(left, pivotIdx - 1, delay);
         // Recursively calling quicksort for right partition
@@ -45,10 +21,10 @@ export const quickSort = async (left, right, delay = 100) => {
     }
 } 
 
-export const lometo_partition = async (left, right, delay) => {
+export const lomuto_partition = async (left, right, delay) => {
     const bars = document.getElementsByClassName('bar')
 
-    // Store the value of the pivot element - Lometo's partition uses last element
+    // Store the value of the pivot element - Lomuto's partition uses last element
     let lastBar = bars[right].style.height
     let pivot = Number((lastBar).slice(0, lastBar.indexOf('p')))
 
@@ -75,7 +51,6 @@ export const lometo_partition = async (left, right, delay) => {
         // To compare value of two blocks
         if (val < pivot) {
             i += 1
-
             let temp1 = bars[i].style.height
             
             //Switch the heights of the bars we're comparing if bar at index j
@@ -83,8 +58,9 @@ export const lometo_partition = async (left, right, delay) => {
             bars[i].style.height = bars[j].style.height
             bars[j].style.height = temp1
 
-            // Style the bar indicating its lower smaller value
+            // Style the bar indicating it's a lower value
             bars[i].style.backgroundColor = lowerColor
+
 
             if (i !== j) bars[j].style.backgroundColor = tokyoLighPurple
 

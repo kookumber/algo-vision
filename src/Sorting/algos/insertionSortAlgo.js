@@ -1,7 +1,4 @@
 let tokyoBlue = '#0DD3FE';
-// let tokyoYellow = '#F9BD25';
-// let tokyoPurple = '#2011a2';
-// let tokyoLightPurple = '#cc00ff';
 let tokyoGreen = '#00ffd2';
 
 export const insertionSort = async (animationSpeed = 300) => {
